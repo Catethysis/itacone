@@ -6,17 +6,15 @@ Adding a simple, arduino-like style to peripheral interaction for STM32.
 
 Использование:
 
-`
-include "itacone.h"
+	include "itacone.h"
 
-PC8.mode(OUT).write(HIGH); //Переводим пин PC8 в состояние "выход" и устанавливаем его в состояние "1"
+	PC8.mode(OUT).write(HIGH); //Переводим пин PC8 в состояние "выход" и устанавливаем его в состояние "1"
 
-while(1)
-{
-	PC8.toggle(); //Переключаем пин PC8 в противоположное состояние
-	delayMs(200); //Пауза на 200 миллисекунд
-}
-`
+	while(1)
+	{
+		PC8.toggle(); //Переключаем пин PC8 в противоположное состояние
+		delayMs(200); //Пауза на 200 миллисекунд
+	}
 
 ##Модуль GPIO
 Используем простые функции для обращения к портам ввода-вывода, а к самым часто используемым есть ещё и алиасы-сокращения. И конечно, не забываем объединять вызовы в цепочки!
@@ -37,28 +35,29 @@ pin _pin2=PD1.mode(INPUT);
 `  
 И наконец, всё это использовать в цикле:  
 `
-while(1)
-{
-	_pin1.high();
-	sleep(100);
-	_pin1.low();
-	sleep(100);
-	_pin1.out(_pin2.in());
-	sleep(500);
+while(1)  
+{  
+	_pin1.high();  
+	sleep(100);  
+	_pin1.low();  
+	sleep(100);  
+	_pin1.out(_pin2.in());  
+	sleep(500);  
 }
 `  
 Перечислю все полезные функции.
 ####pin.mode (mode, [speed])
 Задаёт режим и скорость работы пина, и инициализирует его.  
 `
-pin.mode (INPUT_AN | INPUT_FL | INPUT_PU | INPUT_PD | OUTPUT_PP | OUTPUT_OD | OUTPUT_AF_PP | OUTPUT_AF_OD, [SPEED_2 | SPEED_10 | SPEED_50]);
+pin.mode (OUTPUT_PP | OUTPUT_OD | OUTPUT_AF_PP | OUTPUT_AF_OD |  
+INPUT_AN | INPUT_FL | INPUT_PU | INPUT_PD, [SPEED_2 | SPEED_10 | SPEED_50]);  
 //возвращает снова тот же pin
 `
 ####pin.out (state) или pin.write(state)
 Выводит бит в пин - устанавливает пину переданное состояние.  
 `
-pin.out (LOW | HIGH);
-pin.write (LOW | HIGH);
+pin.out (LOW | HIGH);  
+pin.write (LOW | HIGH);  
 //возвращает снова тот же pin
 `
 ####pin.high()
@@ -70,15 +69,15 @@ pin.write (LOW | HIGH);
 ####pin.in() или pin.read() или pin.readIn()
 Читает состояние пина, настроенного на вход.  
 `
-int a = PC6.in();
-int b = PA3.read();
-int c = PB11.readIn();
+int a = PC6.in();  
+int b = PA3.read();  
+int c = PB11.readIn();  
 //возвращает LOW или HIGH
 `
 ####pin.readOut()
 Читает состояние пина, настроенного на выход.
 `
-int c = PA5.readOut();
+int c = PA5.readOut();  
 //возвращает LOW или HIGH
 `
 Все функции (кроме функций чтения состояния) возвращают pin, поэтому вызовы можно соединять в цепочки:  
