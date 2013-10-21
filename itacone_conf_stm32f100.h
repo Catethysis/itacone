@@ -5,11 +5,18 @@
 */
 
 //Секция GPIO
+
 #define PORTA 0
 #define PORTB 1
 #define PORTC 2
 #define PORTD 3
 #define PORTE 4
+
+volatile uint32_t *PORT_ENR[5]={&RCC->APB2ENR, &RCC->APB2ENR, &RCC->APB2ENR, &RCC->APB2ENR, &RCC->APB2ENR},
+PORT_ENR_bit[5]={RCC_APB2ENR_IOPAEN, RCC_APB2ENR_IOPBEN, RCC_APB2ENR_IOPCEN, RCC_APB2ENR_IOPDEN, RCC_APB2ENR_IOPEEN};
+GPIO_TypeDef *ports[5]={GPIOA, GPIOB, GPIOC, GPIOD, GPIOE};
+
+#include "itacone_gpio.h"
 
 pin
 PA0(PORTA,0),   PA1(PORTA,1),   PA2(PORTA,2),   PA3(PORTA,3),   PA4(PORTA,4),
@@ -28,3 +35,13 @@ PC10(PORTC,10), PC11(PORTC,11), PC12(PORTC,12), PC13(PORTC,13), PC14(PORTC,14),
 PC15(PORTC,15),
 
 PD0(PORTD,0),   PD1(PORTD,1);
+
+//Секция GPIO закончена
+
+
+
+//Секция UART
+
+#include "../inc/itacone_uart.h"
+
+//Секция UART закончена
