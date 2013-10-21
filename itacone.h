@@ -85,6 +85,7 @@ public:
     return *this;
   }
   
+  //Функции входа, возвращающие значение
   int in() { return readIn(); }
   int read() { return readIn(); }
   
@@ -96,6 +97,22 @@ public:
   int readIn()
   {
     return ((ports[this->port]->IDR & this->gpio_pin)==0)?LOW:HIGH;
+  }
+  
+  //Функции входа, возвращающие пин  
+  pin in(int *state) { return readIn(state); }
+  pin read(int *state) { return readIn(state); }
+  
+  pin readOut(int *state)
+  {
+    *state=((ports[this->port]->ODR & this->gpio_pin)==0)?LOW:HIGH;
+    return *this;
+  }
+  
+  pin readIn(int *state)
+  {
+    *state=((ports[this->port]->IDR & this->gpio_pin)==0)?LOW:HIGH;
+    return *this;
   }
   
   pin delayMs(int ms)
