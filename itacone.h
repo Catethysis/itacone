@@ -38,7 +38,7 @@ public:
   int port;
   int gpio_pin;
   int state;
-  
+    
   pin(int n_port, int number)
   {
     this->port=n_port;
@@ -59,6 +59,7 @@ public:
   pin mode(int state) { return mode(state, SPEED_10); }
   
   pin out(int state) { return write(state); }
+  pin set(int state) { return write(state); }
   
   pin write(int state)
   {
@@ -95,6 +96,12 @@ public:
   int readIn()
   {
     return ((ports[this->port]->IDR & this->gpio_pin)==0)?LOW:HIGH;
+  }
+  
+  pin delayMs(int ms)
+  {
+    int n=(SystemCoreClock/1000/5)*ms; while(n-->0); //Почему 5?
+    return *this;
   }
 };
 
@@ -139,7 +146,7 @@ public:
   }*/
 };
 
-
+/*
 class uart
 {
 public:
@@ -154,4 +161,4 @@ public:
     if(enable_usart==ENABLE_USART) USART1_Enable();
     if(enable_it==ENABLE_IT) { USART1->CR1 |= USART_CR1_RXNEIE; NVIC_EnableIRQ(USART1_IRQn); }
   }
-}
+}*/
